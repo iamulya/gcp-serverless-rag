@@ -1,0 +1,47 @@
+main:
+  params: [event]
+  steps:
+      - log_event:
+          call: sys.log
+          args:
+              text: ${event}
+              severity: INFO
+      - extract_bucket_object:
+          assign:
+          - bucket: ${event.data.bucket}
+          - object: ${event.data.name}
+      - chunkify:
+            try:
+                call: http.post
+                args:
+                    url: https://europe-west3-gemini-test-205023409.cloudfunctions.net/document-extractor
+                    body:
+                        bucket: ${bucket}
+                        object: ${object}
+                    auth:
+                        type: OIDC
+                        audience: https://europe-west3-gemini-test-205023409.cloudfunctions.net/document-extractor
+            retry:
+                predicate: ${http.default_retry_predicate}
+                max_retries: 2
+                backoff:
+                    initial_delay: 2
+                    max_delay: 60
+                    multiplier: 2
+      - indexer:
+            try:
+                call: http.post
+                args:
+                    url: https://europe-west3-gemini-test-205023409.cloudfunctions.net/Indexer
+                    body:
+                        object: ${object}
+                    auth:
+                        type: OIDC
+                        audience: https://europe-west3-gemini-test-205023409.cloudfunctions.net/Indexer
+            retry:
+                predicate: ${http.default_retry_predicate}
+                max_retries: 5
+                backoff:
+                    initial_delay: 10
+                    max_delay: 60
+                    multiplier: 2
