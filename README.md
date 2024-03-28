@@ -8,7 +8,7 @@
     - [1.3.3. Indexer](#133-indexer)
     - [1.3.4. Query](#134-query)
 
-This repo contains example code for a serverless RAG implementation. It doesn't deliver high quality results and **should only be used as a guiding tool** for your own serverless RAG application.
+This repo contains example code for a serverless RAG implementation on Google Cloud. It doesn't deliver high quality results and **should only be used as a guiding tool** for your own serverless RAG application.
 
 ## 1.1. Requisites
 Before moving forward, create a service account with the following roles:
@@ -27,7 +27,7 @@ Before moving forward, create a service account with the following roles:
 - Vertex AI User
 - Workflows Admin
 
-This service account can now be used to run all the Cloud Functions and the workflow cited below. It doesn't follow the least permission approach which is usually recommended. 
+This service account can now be used to run all the Cloud Functions and the workflow cited below. It, however, doesn't follow the least permission approach. 
 
 For least permission approach, create a custom role with the following permissions and assign that to a service account. This however has not been properly tested and can result in permission issues!
 
