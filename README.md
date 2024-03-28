@@ -1,5 +1,5 @@
-# [1. Serverless RAG](#1-serverless-rag)
-- [1. Serverless RAG](#1-serverless-rag)
+# [Serverless RAG on GCP](#1-serverless-rag)
+- [Serverless RAG on GCP](#serverless-rag-on-gcp)
   - [1.1. Requisites](#11-requisites)
   - [1.2. Cloud Workflows](#12-cloud-workflows)
   - [1.3. Cloud Functions](#13-cloud-functions)
@@ -8,7 +8,7 @@
     - [1.3.3. Indexer](#133-indexer)
     - [1.3.4. Query](#134-query)
 
-This repo contains example code for a serverless RAG implementation. It doesn't deliver high quality results and **should only be used as a guiding tool** for your own RAG application.
+This repo contains example code for a serverless RAG implementation. It doesn't deliver high quality results and **should only be used as a guiding tool** for your own serverless RAG application.
 
 ## 1.1. Requisites
 Before moving forward, create a service account with the following roles:
@@ -62,16 +62,27 @@ For least permission approach, create a custom role with the following permissio
 
 ## 1.2. Cloud Workflows
 
-[The workflow](workflow/workflow.yaml) is where everything is put together. The workflow gets triggered automatically when a file gets uploaded into a designated bucket using the Pre-signed URL Cloud Function. After this, the workflow calls the *Chunker* function, before *Indexer* kicks in. See below for the details of all these functions.
+[This workflow](workflow/workflow.yaml) is where everything is put together. While creating this workflow, you need to create an EventArc trigger for: 
+
+**Event provider**: Cloud Storage
+
+**Event type**: *google.cloud.storage.object.v1.finalized*
+
+**Bucket**: $BUCKET_NAME
+
+Now, this workflow will get triggered automatically when a file gets uploaded into a designated bucket using the Pre-signed URL Cloud Function. After this, the workflow calls the *Chunker* function, before *Indexer* kicks in. See below for the details of all these functions.
 
 ## 1.3. Cloud Functions
 
 ### 1.3.1. Presigned URL
-This function creates a presigned URL for a file upload to a Cloud Storage Bucket. BUCKET_NAME must be provided as an environment variable to the function to represent the parent bucket where all files will be uploaded. The function expects two parameters in the request body:
+This function creates a presigned URL for a file upload to a Cloud Storage Bucket. BUCKET_NAME must be provided as an environment variable to the function to represent the parent bucket where all files will be uploaded - this should be the same as the bucket you chose above for trigger. The function expects two parameters in the request body:
 1. `object_name` - The name of the file to be uploaded
 2. `collection_name` - The name of the folder inside the bucket where the file will be uploaded. This name should be unique to each user, so that each user has its own collection where their documents get uploaded.
 
 When deploying this funciton, **please use the 1st gen runtime** since there seems to be a bug in the 2nd gen runtime that doesn't see the signBlob permissions correctly.
+
+> [!NOTE]
+> You'll need to provide your PROJECT_ID and LOCATION before deploying the following functions
 
 ### 1.3.2. Chunker
 Parses the uploaded document and split it into chunks. Document AI will be used to parse the document and will be split at the paragraph level. All the document metadata will be saved in Firestore. OUTPUT_BUCKET_NAME must be provided as an environment variable to represent the parent bucket where Document AI will save its response. 
