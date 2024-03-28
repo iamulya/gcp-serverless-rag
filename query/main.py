@@ -12,8 +12,8 @@ from langchain.globals import set_debug, set_verbose
 set_debug(True)
 set_verbose(True)
 
-PROJECT_ID = "gemini-test-205023409"
-LOCATION = "europe-west3"
+PROJECT_ID = "YOUR_PROJECT"
+LOCATION = "YOUR_LOCATION"
 BIGQUERY_DATASET = "gemini_di"  # @param {type: "string"}
 BIGQUERY_TABLE = "doc_and_vectors"  # @param {type: "string"}
 

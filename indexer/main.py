@@ -5,8 +5,8 @@ from langchain.vectorstores.utils import DistanceStrategy
 from langchain_community.vectorstores.bigquery_vector_search import BigQueryVectorSearch
 from langchain_google_vertexai import VertexAIEmbeddings
 
-PROJECT_ID = "gemini-test-205023409"
-LOCATION = "europe-west3"
+PROJECT_ID = "YOUR_PROJECT"
+LOCATION = "YOUR_LOCATION"
 BATCH_SIZE = 5  # Currently the batch size is limited to five. See: https://cloud.google.com/vertex-ai/generative-ai/docs/embeddings/get-text-embeddings#get_text_embeddings_for_a_snippet_of_text
 
 BIGQUERY_DATASET = "gemini_di"  # @param {type: "string"}
