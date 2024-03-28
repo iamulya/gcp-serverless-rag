@@ -1,5 +1,5 @@
-# 1. [1. Serverless RAG](#1-serverless-rag)
-- [1. 1. Serverless RAG](#1-1-serverless-rag)
+# [1. Serverless RAG](#1-serverless-rag)
+- [1. Serverless RAG](#1-serverless-rag)
   - [1.1. Requisites](#11-requisites)
   - [1.2. Cloud Workflows](#12-cloud-workflows)
   - [1.3. Cloud Functions](#13-cloud-functions)
