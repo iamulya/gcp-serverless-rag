@@ -1,6 +1,6 @@
 # [Serverless RAG on GCP](#1-serverless-rag)
 - [Serverless RAG on GCP](#serverless-rag-on-gcp)
-  - [1.1. Requisites](#11-requisites)
+  - [1.1. Prerequisites](#11-prerequisites)
   - [1.2. Cloud Workflows](#12-cloud-workflows)
   - [1.3. Cloud Functions](#13-cloud-functions)
     - [1.3.1. Presigned URL](#131-presigned-url)
@@ -10,7 +10,7 @@
 
 This repo contains example code for an end-to-end serverless RAG implementation on Google Cloud. It doesn't deliver high quality results and **should only be used as a guiding tool** for your own serverless RAG application.
 
-## 1.1. Requisites
+## 1.1. Prerequisites
 Before moving forward, create a service account with the following roles:
 
 - BigQuery Admin
