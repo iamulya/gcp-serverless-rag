@@ -8,7 +8,7 @@
     - [1.3.3. Indexer](#133-indexer)
     - [1.3.4. Query](#134-query)
 
-This repo contains example code for a serverless RAG implementation on Google Cloud. It doesn't deliver high quality results and **should only be used as a guiding tool** for your own serverless RAG application.
+This repo contains example code for an end-to-end serverless RAG implementation on Google Cloud. It doesn't deliver high quality results and **should only be used as a guiding tool** for your own serverless RAG application.
 
 ## 1.1. Requisites
 Before moving forward, create a service account with the following roles:
